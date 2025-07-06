@@ -14,14 +14,19 @@ function JobList() {
   }, []);
 
   return (
-    <div className="max-w-3xl mx-auto mt-10">
+    <div className="max-w-5xl mx-auto mt-10">
       <h2 className="text-2xl font-bold mb-6">Job Listings</h2>
-      <ul className="space-y-4">
+      <ul className="space-y-6">
         {jobs.map((job) => (
           <li key={job.id} className="p-4 bg-white shadow rounded">
-            <div className="font-semibold text-lg">{job.title}</div>
-            <div className="text-sm text-gray-600">{job.location}</div>
-            <Link to={`/apply/${job.id}`} className="text-blue-500 hover:underline">
+            <div className="text-xl font-semibold">{job.title} @ {job.company}</div>
+            <p className="text-sm text-gray-600">{job.location} | {job.type}</p>
+            <p className="mt-2">{job.description}</p>
+            <p><strong>Skills:</strong> {job.skillsRequired}</p>
+            <p><strong>Experience:</strong> {job.experience}</p>
+            <p><strong>Salary:</strong> ₹{job.salary}</p>
+            <p><strong>Deadline:</strong> {job.deadline}</p>
+            <Link to={`/apply/${job.id}`} className="text-blue-600 hover:underline mt-2 inline-block">
               Apply
             </Link>
           </li>

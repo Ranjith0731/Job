@@ -2,7 +2,17 @@ import React, { useState } from 'react';
 import { postJob } from '../api/jobService';
 
 function JobForm() {
-  const [job, setJob] = useState({ title: '', description: '', location: '' });
+  const [job, setJob] = useState({
+    title: '',
+    company: '',
+    type: '',
+    location: '',
+    description: '',
+    salary: '',
+    experience: '',
+    skillsRequired: '',
+    deadline: ''
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,25 +24,31 @@ function JobForm() {
     try {
       await postJob(job);
       alert('Job posted successfully!');
-      setJob({ title: '', description: '', location: '' });
+      setJob({
+        title: '', company: '', type: '', location: '', description: '', salary: '',
+        experience: '', skillsRequired: '', deadline: ''
+      });
     } catch (error) {
       console.error('Error posting job:', error);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Post a Job</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Job Title"
-          value={job.title}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-          required
-        />
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow rounded">
+      <h2 className="text-2xl font-bold mb-4">Post a Job</h2>
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {['title', 'company', 'type', 'location', 'experience', 'skillsRequired', 'deadline'].map((field) => (
+          <input
+            key={field}
+            type="text"
+            name={field}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            value={job[field]}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+            required
+          />
+        ))}
         <textarea
           name="description"
           placeholder="Job Description"
@@ -42,10 +58,10 @@ function JobForm() {
           required
         />
         <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={job.location}
+          type="number"
+          name="salary"
+          placeholder="Salary"
+          value={job.salary}
           onChange={handleChange}
           className="w-full border p-2 rounded"
           required

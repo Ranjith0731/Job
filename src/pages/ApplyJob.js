@@ -4,7 +4,11 @@ import axios from 'axios';
 
 function ApplyJob() {
   const { jobId } = useParams();
-  const [applicant, setApplicant] = useState({ name: '', email: '', resume: null });
+  const [applicant, setApplicant] = useState({
+    name: '',
+    email: '',
+    resume: null
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
