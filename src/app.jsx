@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './components/Home';
 import JobList from './components/JobList';
 import JobForm from './components/JobForm';
-import ApplyJob from './pages/ApplyJob';
-import Login from './pages/Login';       // ✅ Add this
-import Register from './pages/Register'; // ✅ Add this
+import ApplyJob from './components/ApplyJob';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         <Route path="/jobs" element={<JobList />} />
         <Route path="/post-job" element={<JobForm />} />
         <Route path="/apply/:jobId" element={<ApplyJob />} />
-        <Route path="/login" element={<Login />} />         {/* ✅ Add */}
-        <Route path="/register" element={<Register />} />   {/* ✅ Add */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
