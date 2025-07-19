@@ -1,47 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import { getAllJobs } from '../api/jobService';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { CalendarDays, MapPin, Banknote, Briefcase } from "lucide-react";
 
-function JobList() {
-  const [jobs, setJobs] = useState([]);
+// Dummy job list (replace with real data from backend/API)
+const jobs = [
+  {
+    id: 1,
+    title: "Frontend Developer",
+    company: "Skillencio Pvt. Ltd.",
+    location: "Hyderabad",
+    salary: "₹6,00,000",
+    description: "Work on React, Tailwind, and frontend frameworks...",
+    skills: ["React", "Tailwind", "JavaScript"],
+    deadline: "2025-08-30",
+  },
+  {
+    id: 2,
+    title: "Backend Engineer",
+    company: "Teklozy",
+    location: "Bangalore",
+    salary: "₹8,00,000",
+    description: "Design REST APIs with Node.js and MongoDB...",
+    skills: ["Node.js", "MongoDB", "Express"],
+    deadline: "2025-09-05",
+  },
+];
 
-  useEffect(() => {
-    async function fetchJobs() {
-      const data = await getAllJobs();
-      setJobs(data);
-    }
-    fetchJobs();
-  }, []);
-
+const JobList = () => {
   return (
-    <div className="max-w-6xl mx-auto py-10 px-4">
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">Browse Job Openings</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="max-w-6xl mx-auto py-12 px-6">
+      <h1 className="text-4xl font-bold mb-10 text-center text-indigo-700">Available Job Opportunities</h1>
+
+      <div className="grid md:grid-cols-2 gap-6">
         {jobs.map((job) => (
-          <div key={job.id} className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-xl font-semibold text-blue-700">{job.title}</h3>
-              <span className="text-sm px-3 py-1 bg-blue-100 text-blue-600 rounded-full">{job.type}</span>
-            </div>
-            <p className="text-gray-600 font-medium">{job.company} • {job.location}</p>
-            <p className="text-gray-700 mt-2">{job.description}</p>
-            <ul className="text-sm mt-3 text-gray-600 space-y-1">
-              <li><strong>Skills:</strong> {job.skillsRequired}</li>
-              <li><strong>Experience:</strong> {job.experience}</li>
-              <li><strong>Salary:</strong> ₹{job.salary}</li>
-              <li><strong>Deadline:</strong> {job.deadline}</li>
-            </ul>
-            <Link
-              to={`/apply/${job.id}`}
-              className="inline-block mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-            >
-              Apply Now
-            </Link>
-          </div>
+          <Card key={job.id} className="rounded-2xl shadow-md transition hover:shadow-xl border border-gray-200">
+            <CardContent className="p-6 space-y-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-semibold text-gray-800">{job.title}</h2>
+                <Badge variant="outline" className="text-sm px-3 py-1 border-indigo-500 text-indigo-700">
+                  {job.company}
+                </Badge>
+              </div>
+
+              <p className="text-sm text-gray-600 flex items-center gap-2">
+                <MapPin className="w-4 h-4" /> {job.location}
+              </p>
+
+              <p className="text-sm text-gray-600 flex items-center gap-2">
+                <Banknote className="w-4 h-4" /> {job.salary} per annum
+              </p>
+
+              <p className="text-sm text-gray-600 flex items-center gap-2">
+                <CalendarDays className="w-4 h-4" /> Apply by: {job.deadline}
+              </p>
+
+              <p className="text-gray-700 text-sm mt-2">{job.description}</p>
+
+              <div className="flex flex-wrap gap-2 mt-3">
+                {job.skills.map((skill, index) => (
+                  <Badge key={index} variant="secondary" className="bg-indigo-100 text-indigo-700">
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Briefcase className="w-4 h-4 mr-2" /> Apply Now
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default JobList;

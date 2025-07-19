@@ -1,42 +1,75 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { LogOut, LogIn, UserPlus, Briefcase, UploadCloud } from 'lucide-react';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem('user');
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 flex items-center justify-center p-4">
-      <div className="bg-white/30 backdrop-blur-lg shadow-xl rounded-2xl p-10 text-center max-w-xl w-full">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Welcome to <span className="text-blue-600">Job Portal</span>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 relative overflow-hidden flex items-center justify-center p-6">
+      
+      {/* Floating decorative gradient circle */}
+      <div className="absolute -top-40 -left-40 w-[400px] h-[400px] bg-purple-300 opacity-30 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] bg-pink-300 opacity-30 rounded-full blur-3xl animate-pulse" />
+
+      <div className="relative z-10 bg-white/30 backdrop-blur-md border border-white/40 shadow-2xl rounded-3xl p-10 max-w-2xl w-full text-center">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight drop-shadow-sm">
+          Welcome to <span className="text-indigo-600">Job Portal</span>
         </h1>
-        <p className="text-gray-700 mb-8 text-lg">
-          Find your dream job or hire the best talent today.
+        <p className="text-gray-700 text-lg md:text-xl mb-8">
+          Discover your next opportunity or hire top talent in seconds.
         </p>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
           <Link
             to="/jobs"
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md shadow-md transition"
+            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 rounded-xl shadow-lg transition"
           >
+            <Briefcase className="w-5 h-5" />
             View Jobs
           </Link>
+
           <Link
             to="/post-job"
-            className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-md shadow-md transition"
+            className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-xl shadow-lg transition"
           >
+            <UploadCloud className="w-5 h-5" />
             Post a Job
           </Link>
-          <Link
-            to="/login"
-            className="border border-blue-500 text-blue-600 hover:bg-blue-50 py-2 px-6 rounded-md shadow-sm transition"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="border border-gray-500 text-gray-700 hover:bg-gray-100 py-2 px-6 rounded-md shadow-sm transition"
-          >
-            Register
-          </Link>
+
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="col-span-2 flex items-center justify-center gap-2 border border-red-500 text-red-600 hover:bg-red-100 py-3 px-6 rounded-xl shadow-md transition"
+            >
+              <LogOut className="w-5 h-5" />
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="flex items-center justify-center gap-2 border border-blue-500 text-blue-600 hover:bg-blue-100 py-3 px-6 rounded-xl shadow-md transition"
+              >
+                <LogIn className="w-5 h-5" />
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="flex items-center justify-center gap-2 border border-gray-500 text-gray-700 hover:bg-gray-100 py-3 px-6 rounded-xl shadow-md transition"
+              >
+                <UserPlus className="w-5 h-5" />
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

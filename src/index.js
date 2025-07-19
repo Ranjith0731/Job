@@ -1,13 +1,18 @@
+// src/index.js
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './styles/custom.css'; // ✅ Optional: Import your global styles here
-import './index.css';
-
+import './index.css'; // Tailwind or global styles
+// import ErrorBoundary from './components/ErrorBoundary';
+// import reportWebVitals from './reportWebVitals'; // Optional but good 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <ErrorBoundary> */}
+      <App />
+    {/* </ErrorBoundary> */}
   </React.StrictMode>
 );

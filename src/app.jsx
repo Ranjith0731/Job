@@ -1,23 +1,38 @@
+// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import JobList from './components/JobList';
+// import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Pages & Components
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ApplyJob from './pages/ApplyJob';
 import JobForm from './components/JobForm';
-import ApplyJob from './components/ApplyJob';
-import Login from './components/Login';
-import Register from './components/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import FileUploader from './components/FileUploader';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/jobs" element={<JobList />} />
-        <Route path="/post-job" element={<JobForm />} />
-        <Route path="/apply/:jobId" element={<ApplyJob />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <main className="min-h-screen font-sans bg-gray-50 text-gray-800">
+        {/* <ToastContainer  > */}
+        {/* position="top-right" autoClose={3000} pauseOnHover={false} theme="colored" */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/jobs" element={<ApplyJob />} />
+          <Route path="/post-job" element={<JobForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/file-uploader" element={<FileUploader />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        {/* </ToastContainer> */}
+      </main>
     </Router>
   );
 }
